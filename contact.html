@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — LUXE STORE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <style>
+    .contact-hero { padding: 80px 0 60px; text-align: center; }
+    .contact-hero .overline { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .contact-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 20px; }
+    .contact-hero p { color: var(--text-secondary); max-width: 520px; margin: 0 auto; font-size: 0.95rem; line-height: 1.8; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding-bottom: 100px; align-items: start; }
+
+    .contact-info { }
+    .contact-info h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; }
+    .contact-info p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 40px; font-size: 0.9rem; }
+    .contact-channels { display: flex; flex-direction: column; gap: 20px; margin-bottom: 48px; }
+    .contact-channel { display: flex; gap: 18px; align-items: flex-start; }
+    .channel-icon { width: 48px; height: 48px; background: rgba(201,168,76,0.08); border: 1px solid var(--gold-dim); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .channel-body h4 { font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .channel-body a, .channel-body p { font-size: 0.9rem; color: var(--text-primary); text-decoration: none; display: block; line-height: 1.6; }
+    .channel-body a:hover { color: var(--gold); }
+    .channel-body .hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+    .social-links { }
+    .social-links h4 { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .social-row { display: flex; gap: 12px; }
+    .social-link { width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1rem; text-decoration: none; transition: all 0.3s; }
+    .social-link:hover { border-color: var(--gold); transform: translateY(-2px); }
+
+    .contact-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 44px; }
+    .contact-form-card h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 8px; }
+    .contact-form-card .subtitle { color: var(--text-muted); font-size: 0.83rem; margin-bottom: 32px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary); padding: 13px 16px; font-family: 'Montserrat', sans-serif; font-size: 0.88rem; border-radius: 2px; transition: border-color 0.3s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); }
+    .form-group select option { background: var(--bg-secondary); }
+    .form-group textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn-submit { width: 100%; padding: 15px; font-size: 0.8rem; letter-spacing: 3px; margin-top: 8px; }
+
+    .faq-section { padding: 80px 0; border-top: 1px solid var(--border); }
+    .faq-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; text-align: center; margin-bottom: 48px; }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .faq-question { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 500; transition: background 0.2s; }
+    .faq-question:hover { background: rgba(255,255,255,0.02); }
+    .faq-question.open { color: var(--gold); }
+    .faq-chevron { transition: transform 0.3s; font-size: 0.8rem; color: var(--text-muted); }
+    .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--gold); }
+    .faq-answer { display: none; padding: 0 24px 20px; color: var(--text-secondary); font-size: 0.85rem; line-height: 1.8; border-top: 1px solid var(--border); padding-top: 16px; }
+    .faq-answer.open { display: block; }
+
+    @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } .faq-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .contact-form-card { padding: 28px 20px; } }
+  </style>
+</head>
+<body>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="index.html" class="logo"><span class="logo-text">LUXE</span></a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+          <li><a href="shop.html?category=Dresses">Dresses</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="nav-icon-btn search-btn" id="searchBtn" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <a href="login.html" class="nav-icon-btn" aria-label="Account">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+          <a href="cart.html" class="nav-icon-btn cart-btn" aria-label="Cart">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-inner">
+      <form class="search-form" onsubmit="handleSearch(event)">
+        <input type="text" id="searchInput" placeholder="Search for pieces..." autocomplete="off" />
+        <button type="submit">→</button>
+      </form>
+      <button class="search-close" id="searchClose">✕</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="shop.html">Shop All</a></li>
+      <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+      <li><a href="shop.html?category=Dresses">Dresses</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Sign In</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <div class="contact-hero reveal">
+      <div class="container">
+        <div class="overline">Get in Touch</div>
+        <h1>We'd Love to Hear From You</h1>
+        <p>Whether you have a question about sizing, an order, or just want to say hello — our team is here for you.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Info -->
+        <div class="contact-info reveal-left">
+          <h2>Let's Connect</h2>
+          <p>Our team of style consultants and customer care specialists are available to assist you with any inquiries. We pride ourselves on exceptional service that matches our exceptional products.</p>
+          <div class="contact-channels">
+            <div class="contact-channel">
+              <div class="channel-icon">📧</div>
+              <div class="channel-body">
+                <h4>Email Us</h4>
+                <a href="mailto:hello@luxestore.com">hello@luxestore.com</a>
+                <p class="hint">Response within 24 hours</p>
+              </div>
+            </div>
+            <div class="contact-channel">
+              <div class="channel-icon">📞</div>
+              <div class="channel-body">
+                <h4>Call Us</h4>
+                <a href="tel:+18005893647">+1 (800) 589-3647</a>
+                <p class="hint">Mon–Fri, 9 AM – 6 PM EST</p>
+              </div>
+            </div>
+            <div class="contact-channel">
+              <div class="channel-icon">💬</div>
+              <div class="channel-body">
+                <h4>Live Chat</h4>
+                <p>Available on our website</p>
+                <p class="hint">Mon–Fri, 9 AM – 9 PM EST</p>
+              </div>
+            </div>
+            <div class="contact-channel">
+              <div class="channel-icon">📍</div>
+              <div class="channel-body">
+                <h4>Our Studio</h4>
+                <p>420 Fifth Avenue, Floor 12<br />New York, NY 10018</p>
+                <p class="hint">By appointment only</p>
+              </div>
+            </div>
+          </div>
+          <div class="social-links">
+            <h4>Follow Us</h4>
+            <div class="social-row">
+              <a href="#" class="social-link" title="Instagram">📷</a>
+              <a href="#" class="social-link" title="Pinterest">📌</a>
+              <a href="#" class="social-link" title="Twitter">🐦</a>
+              <a href="#" class="social-link" title="TikTok">🎵</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form-card reveal-right">
+          <h2>Send Us a Message</h2>
+          <p class="subtitle">Fill out the form and we'll get back to you as soon as possible.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" id="cFirst" placeholder="John" />
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" id="cLast" placeholder="Doe" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="cEmail" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Order Number (optional)</label>
+            <input type="text" id="cOrder" placeholder="#LUXE-123456" />
+          </div>
+          <div class="form-group">
+            <label>Subject *</label>
+            <select id="cSubject">
+              <option value="">Select a topic...</option>
+              <option>Order Status / Tracking</option>
+              <option>Returns & Exchanges</option>
+              <option>Product Information</option>
+              <option>Sizing & Fit</option>
+              <option>Wholesale & Partnerships</option>
+              <option>Press & Media</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message *</label>
+            <textarea id="cMessage" placeholder="How can we help you today?"></textarea>
+          </div>
+          <button class="btn btn-primary btn-submit" onclick="submitContact()">Send Message</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div class="container">
+        <h2 class="reveal">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              What is your return policy? <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-answer">We offer free returns within 30 days of delivery for unworn, unwashed items with original tags attached. Simply initiate a return through your account or contact our support team.</div>
+          </div>
+          <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              How long does shipping take? <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-answer">Standard shipping takes 5–7 business days. Express shipping (2–3 days) and overnight options are available at checkout. Orders over $200 receive free standard shipping.</div>
+          </div>
+          <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              Do you ship internationally? <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-answer">Yes! We ship to over 80 countries worldwide. International shipping times vary by destination, typically 7–14 business days. Import duties may apply.</div>
+          </div>
+          <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              How do I find my size? <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-answer">Each product page includes a detailed size guide. We recommend measuring yourself and comparing to our size chart. If you're between sizes, we generally recommend sizing up for outerwear and sizing down for fitted styles.</div>
+          </div>
+          <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              Are your items authentic? <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-answer">Absolutely. Every item in our collection is 100% authentic and sourced directly from our manufacturing partners. We maintain strict quality control standards to ensure each piece meets our luxury benchmarks.</div>
+          </div>
+          <div class="faq-item reveal">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              Can I modify or cancel my order? <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-answer">Orders can be modified or cancelled within 2 hours of placement. After this window, our team begins processing and we cannot guarantee changes. Contact us immediately at hello@luxestore.com.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">LUXE</div>
+          <p>Redefining luxury fashion for the modern wardrobe. Curated pieces, timeless style.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="shop.html?badge=new">New Arrivals</a></li>
+            <li><a href="shop.html?badge=sale">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Sign In</a></li>
+            <li><a href="login.html?tab=register">Register</a></li>
+            <li><a href="feedback.html">Reviews</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 LUXE Store. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/core.js"></script>
+  <script>
+    function submitContact() {
+      const first = document.getElementById('cFirst').value.trim();
+      const last = document.getElementById('cLast').value.trim();
+      const email = document.getElementById('cEmail').value.trim();
+      const subject = document.getElementById('cSubject').value;
+      const message = document.getElementById('cMessage').value.trim();
+
+      if (!first || !last || !email || !subject || !message) {
+        Toast.show('Please fill in all required fields.', 'error'); return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        Toast.show('Please enter a valid email address.', 'error'); return;
+      }
+
+      // Save to storage
+      const contacts = Storage.get('luxe_contacts') || [];
+      contacts.push({ first, last, email, subject, message, date: new Date().toISOString() });
+      Storage.set('luxe_contacts', contacts);
+
+      Toast.show('Message sent! We\'ll be in touch within 24 hours.', 'success');
+      ['cFirst','cLast','cEmail','cOrder','cMessage'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('cSubject').value = '';
+    }
+
+    function toggleFaq(el) {
+      const answer = el.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('open'));
+      if (!isOpen) {
+        answer.classList.add('open');
+        el.classList.add('open');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavbar();
+      initSearch();
+      initMobileMenu();
+      initScrollReveal();
+      initCursor();
+    });
+  </script>
+</body>
+</html>

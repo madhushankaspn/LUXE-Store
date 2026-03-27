@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — LUXE STORE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <style>
+    body { min-height: 100vh; }
+    .auth-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; }
+    .auth-visual { position: relative; overflow: hidden; background: #050505; display: flex; flex-direction: column; justify-content: flex-end; padding: 60px; }
+    .auth-visual-bg { position: absolute; inset: 0; }
+    .auth-visual-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
+    .auth-visual-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3)); }
+    .auth-visual-content { position: relative; z-index: 1; }
+    .auth-logo { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); letter-spacing: 6px; display: block; margin-bottom: 40px; text-decoration: none; }
+    .auth-visual-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; line-height: 1.5; color: var(--text-primary); margin-bottom: 16px; }
+    .auth-visual-sub { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+    .auth-features { display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+    .auth-feature { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--text-secondary); }
+    .auth-feature-icon { width: 32px; height: 32px; background: rgba(201,168,76,0.1); border: 1px solid var(--gold-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+
+    .auth-form-panel { display: flex; flex-direction: column; justify-content: center; padding: 60px 70px; background: var(--bg-primary); }
+    .auth-form-inner { max-width: 400px; width: 100%; margin: 0 auto; }
+    .auth-tabs { display: flex; gap: 0; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
+    .auth-tab { padding: 12px 0; margin-right: 32px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.3s; }
+    .auth-tab.active { color: var(--text-primary); border-bottom-color: var(--gold); }
+    .auth-form-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 8px; }
+    .auth-form-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 36px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .form-group input { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text-primary); padding: 14px 16px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; border-radius: 2px; transition: border-color 0.3s; }
+    .form-group input:focus { outline: none; border-color: var(--gold); }
+    .form-group .input-hint { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
+    .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.8rem; color: var(--text-secondary); }
+    .checkbox-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--gold); }
+    .forgot-link { font-size: 0.8rem; color: var(--gold); text-decoration: none; transition: opacity 0.3s; }
+    .forgot-link:hover { opacity: 0.7; }
+    .btn-auth { width: 100%; padding: 15px; font-size: 0.8rem; letter-spacing: 3px; }
+    .auth-divider { display: flex; align-items: center; gap: 16px; margin: 28px 0; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .auth-divider span { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 1px; }
+    .social-btns { display: flex; gap: 12px; }
+    .social-btn { flex: 1; padding: 12px; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); font-family: 'Montserrat', sans-serif; font-size: 0.8rem; cursor: pointer; border-radius: 2px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s; }
+    .social-btn:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .auth-switch { text-align: center; margin-top: 28px; font-size: 0.8rem; color: var(--text-muted); }
+    .auth-switch a { color: var(--gold); text-decoration: none; }
+    .password-wrapper { position: relative; }
+    .password-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; }
+    .strength-bar { height: 3px; border-radius: 2px; background: var(--border); margin-top: 6px; overflow: hidden; }
+    .strength-fill { height: 100%; border-radius: 2px; width: 0; transition: width 0.3s, background 0.3s; }
+
+    @media (max-width: 1024px) { .auth-visual { display: none; } .auth-form-panel { padding: 40px; } }
+    @media (max-width: 600px) { .auth-page { grid-template-columns: 1fr; } .auth-form-panel { padding: 40px 24px; } }
+  </style>
+</head>
+<body>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="auth-page">
+    <!-- Visual Panel -->
+    <div class="auth-visual">
+      <div class="auth-visual-bg">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200" alt="Fashion"
+             onerror="this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200'" />
+      </div>
+      <div class="auth-visual-overlay"></div>
+      <div class="auth-visual-content">
+        <a href="index.html" class="auth-logo">LUXE</a>
+        <div class="auth-visual-quote">"Style is a way to say who you are without having to speak."</div>
+        <div class="auth-visual-sub">— Rachel Zoe</div>
+        <div class="auth-features">
+          <div class="auth-feature"><div class="auth-feature-icon">✦</div><span>Exclusive Member Discounts</span></div>
+          <div class="auth-feature"><div class="auth-feature-icon">♡</div><span>Save your Wishlist</span></div>
+          <div class="auth-feature"><div class="auth-feature-icon">📦</div><span>Track your Orders</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Panel -->
+    <div class="auth-form-panel">
+      <div class="auth-form-inner">
+        <div class="auth-tabs">
+          <div class="auth-tab active" id="loginTab" onclick="switchTab('login')">Sign In</div>
+          <div class="auth-tab" id="registerTab" onclick="switchTab('register')">Create Account</div>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm">
+          <h2 class="auth-form-title">Welcome Back</h2>
+          <p class="auth-form-subtitle">Sign in to your LUXE account</p>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
+              <button class="password-toggle" onclick="togglePassword('loginPassword', this)" tabindex="-1">👁</button>
+            </div>
+          </div>
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberMe" />
+              Remember me
+            </label>
+            <a href="#" class="forgot-link" onclick="showForgot(); return false;">Forgot password?</a>
+          </div>
+          <button class="btn btn-primary btn-auth" onclick="handleLogin()">Sign In</button>
+          <div class="auth-divider"><span>or continue with</span></div>
+          <div class="social-btns">
+            <button class="social-btn" onclick="Toast.show('Social login coming soon', 'info')">🔵 Google</button>
+            <button class="social-btn" onclick="Toast.show('Social login coming soon', 'info')">⬛ Apple</button>
+          </div>
+          <div class="auth-switch">Don't have an account? <a href="#" onclick="switchTab('register'); return false;">Create one</a></div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" style="display:none">
+          <h2 class="auth-form-title">Join LUXE</h2>
+          <p class="auth-form-subtitle">Create your account and unlock exclusive benefits</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="regFirst" placeholder="John" />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="regLast" placeholder="Doe" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="regEmail" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="regPassword" placeholder="Minimum 8 characters" autocomplete="new-password"
+                     oninput="checkStrength(this)" />
+              <button class="password-toggle" onclick="togglePassword('regPassword', this)" tabindex="-1">👁</button>
+            </div>
+            <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+            <div class="input-hint" id="strengthLabel">Enter a password</div>
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="regConfirm" placeholder="Re-enter password" />
+              <button class="password-toggle" onclick="togglePassword('regConfirm', this)" tabindex="-1">👁</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label" style="margin-top:4px;">
+              <input type="checkbox" id="agreeTerms" />
+              I agree to the <a href="#" style="color:var(--gold)">Terms of Service</a> and <a href="#" style="color:var(--gold)">Privacy Policy</a>
+            </label>
+          </div>
+          <button class="btn btn-primary btn-auth" onclick="handleRegister()">Create Account</button>
+          <div class="auth-switch">Already have an account? <a href="#" onclick="switchTab('login'); return false;">Sign in</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    function init() {
+      initCursor();
+      // Redirect if already logged in
+      const session = Auth.getSession();
+      if (session && !session.isAdmin) {
+        const redirect = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
+        window.location.href = redirect;
+      }
+      // Check URL for tab
+      const tab = new URLSearchParams(window.location.search).get('tab');
+      if (tab === 'register') switchTab('register');
+    }
+
+    function switchTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('loginTab').classList.toggle('active', isLogin);
+      document.getElementById('registerTab').classList.toggle('active', !isLogin);
+      document.getElementById('loginForm').style.display = isLogin ? 'block' : 'none';
+      document.getElementById('registerForm').style.display = isLogin ? 'none' : 'block';
+    }
+
+    function togglePassword(id, btn) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+      btn.textContent = input.type === 'password' ? '👁' : '🙈';
+    }
+
+    function checkStrength(input) {
+      const val = input.value;
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const fill = document.getElementById('strengthFill');
+      const label = document.getElementById('strengthLabel');
+      const widths = ['0%', '25%', '50%', '75%', '100%'];
+      const colors = ['transparent', '#ef4444', '#f59e0b', '#22c55e', '#16a34a'];
+      const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+      fill.style.width = widths[score];
+      fill.style.background = colors[score];
+      label.textContent = score > 0 ? `Password strength: ${labels[score]}` : 'Enter a password';
+    }
+
+    function handleLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      if (!email || !password) {
+        Toast.show('Please fill in all fields.', 'error'); return;
+      }
+      const result = Auth.login(email, password);
+      if (result.success) {
+        Toast.show(`Welcome back, ${result.user.firstName || 'friend'}!`, 'success');
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
+          window.location.href = redirect;
+        }, 800);
+      } else {
+        // Try admin
+        const admin = Auth.adminLogin(email, password);
+        if (admin.success) {
+          Toast.show('Welcome, Admin!', 'success');
+          setTimeout(() => window.location.href = 'admin.html', 800);
+        } else {
+          Toast.show(result.error || 'Invalid credentials.', 'error');
+        }
+      }
+    }
+
+    function handleRegister() {
+      const first = document.getElementById('regFirst').value.trim();
+      const last = document.getElementById('regLast').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirm').value;
+      const agreed = document.getElementById('agreeTerms').checked;
+
+      if (!first || !last || !email || !password) {
+        Toast.show('Please fill in all required fields.', 'error'); return;
+      }
+      if (password.length < 8) {
+        Toast.show('Password must be at least 8 characters.', 'error'); return;
+      }
+      if (password !== confirm) {
+        Toast.show('Passwords do not match.', 'error'); return;
+      }
+      if (!agreed) {
+        Toast.show('Please agree to the Terms of Service.', 'error'); return;
+      }
+
+      const result = Auth.register({ firstName: first, lastName: last, email, password });
+      if (result.success) {
+        Toast.show('Account created! Signing you in...', 'success');
+        setTimeout(() => window.location.href = 'index.html', 1000);
+      } else {
+        Toast.show(result.error || 'Registration failed.', 'error');
+      }
+    }
+
+    function showForgot() {
+      Toast.show('Password reset link would be sent to your email.', 'info');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Allow Enter key submission
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm.style.display !== 'none') handleLogin();
+        else handleRegister();
+      }
+    });
+  </script>
+</body>
+</html>

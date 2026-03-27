@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — LUXE STORE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+<div id="toast-container"></div>
+
+<div id="search-overlay" class="search-overlay">
+  <button class="search-close">×</button>
+  <form id="search-form" class="search-form">
+    <input type="text" id="search-input" class="search-input" placeholder="Search for pieces..." autocomplete="off">
+    <button type="submit" class="search-submit"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+  </form>
+</div>
+
+<div class="mobile-menu">
+  <button class="mobile-close">×</button>
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="login.html">Account</a></li>
+  </ul>
+</div>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo">LUXE<span>.</span></a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="navbar-icon-btn" data-open-search>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="login.html" class="navbar-icon-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="cart.html" class="navbar-icon-btn" style="position:relative">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <button class="menu-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Product Detail -->
+<div class="container">
+  <div class="product-detail">
+    <div class="breadcrumb" style="justify-content:flex-start;margin-bottom:32px">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="shop.html">Shop</a>
+      <span class="breadcrumb-sep">›</span>
+      <span id="bread-category">–</span>
+      <span class="breadcrumb-sep">›</span>
+      <span id="bread-name" class="text-muted">–</span>
+    </div>
+
+    <div class="product-detail-grid" id="product-detail-content">
+      <!-- Rendered by JS -->
+    </div>
+
+    <!-- Product Tabs -->
+    <div class="product-tabs">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="details">Details</button>
+        <button class="tab-btn" data-tab="shipping">Shipping & Returns</button>
+        <button class="tab-btn" data-tab="reviews">Reviews <span id="review-count-badge"></span></button>
+      </div>
+
+      <div id="tab-details" class="tab-content active">
+        <div style="max-width:700px" id="tab-details-content"></div>
+      </div>
+
+      <div id="tab-shipping" class="tab-content">
+        <div style="max-width:600px">
+          <h4 style="margin-bottom:16px">Shipping Information</h4>
+          <p style="color:var(--text-secondary);line-height:1.9;margin-bottom:20px">We offer complimentary standard shipping on all orders over $200. For orders under $200, a flat shipping fee of $15 applies. Express shipping is available at checkout for $25.</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;color:var(--text-secondary);font-size:0.88rem">
+            <li>📦 Standard Shipping: 5–7 business days</li>
+            <li>⚡ Express Shipping: 2–3 business days</li>
+            <li>🌍 International: 10–14 business days</li>
+          </ul>
+          <hr class="divider">
+          <h4 style="margin-bottom:16px">Returns Policy</h4>
+          <p style="color:var(--text-secondary);line-height:1.9">We offer hassle-free returns within 30 days of purchase. Items must be unworn, unwashed, and in their original packaging with all tags attached. Sale items are final sale.</p>
+        </div>
+      </div>
+
+      <div id="tab-reviews" class="tab-content">
+        <div id="reviews-container"></div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div style="margin-top:80px">
+      <div class="reveal">
+        <span class="section-label">You May Also Like</span>
+        <h3 class="section-title" style="font-size:1.6rem">Related Pieces</h3>
+        <div class="section-divider"></div>
+      </div>
+      <div class="product-grid" id="related-products" style="margin-top:32px"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 LUXE Store.</p>
+      <a href="shop.html" class="text-gold">← Back to Shop</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/core.js"></script>
+<script>
+let selectedSize = null;
+let selectedColor = null;
+let selectedColorName = null;
+let qty = 1;
+let currentProduct = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const id = Utils.getQueryParam('id');
+  if (!id) { window.location.href = 'shop.html'; return; }
+
+  currentProduct = Products.getById(id);
+  if (!currentProduct) { window.location.href = 'shop.html'; return; }
+
+  document.title = currentProduct.name + ' — LUXE STORE';
+  document.getElementById('bread-category').textContent = currentProduct.category;
+  document.getElementById('bread-name').textContent = currentProduct.name;
+
+  renderProductDetail(currentProduct);
+  renderProductReviews(currentProduct.id);
+  renderRelated(currentProduct);
+
+  initTabs();
+});
+
+function renderProductDetail(p) {
+  const discount = p.originalPrice ? Math.round((1 - p.price / p.originalPrice) * 100) : 0;
+
+  const thumbs = p.images.map((img, i) => `
+    <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImage('${img}', this)">
+      <img src="${img}" alt="${p.name}">
+    </div>
+  `).join('');
+
+  const sizes = (p.sizes || []).map(s => `
+    <button class="size-btn" data-size="${s}" onclick="selectSize('${s}', this)">${s}</button>
+  `).join('');
+
+  const colors = (p.colors || []).map((c, i) => `
+    <div class="color-opt ${i === 0 ? 'active' : ''}" style="${Utils.getColorStyle(c)}"
+      data-color="${c}" data-name="${(p.colorNames || [])[i] || c}"
+      title="${(p.colorNames || [])[i] || c}"
+      onclick="selectColor('${c}', '${(p.colorNames || [])[i] || c}', this)">
+    </div>
+  `).join('');
+
+  // Pre-select first color
+  selectedColor = (p.colors || [])[0] || null;
+  selectedColorName = (p.colorNames || [])[0] || null;
+
+  document.getElementById('product-detail-content').innerHTML = `
+    <!-- Gallery -->
+    <div class="product-gallery">
+      <div class="gallery-main">
+        <img src="${p.images[0]}" alt="${p.name}" id="main-image" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80'">
+      </div>
+      <div class="gallery-thumbs">${thumbs}</div>
+    </div>
+
+    <!-- Info -->
+    <div class="product-info-section">
+      <div class="product-info-category">${p.category}</div>
+      <h1 class="product-info-name">${p.name}</h1>
+
+      <div class="product-rating-row">
+        ${Utils.renderStars(p.rating)}
+        <span class="review-count">${p.rating} (${p.reviews} reviews)</span>
+      </div>
+
+      <div class="product-info-price">
+        <div class="price-current">${Utils.formatPrice(p.price)}</div>
+        ${p.originalPrice ? `<div class="price-original">${Utils.formatPrice(p.originalPrice)}</div>` : ''}
+        ${discount ? `<div class="price-discount">-${discount}%</div>` : ''}
+      </div>
+
+      <p class="product-description">${p.description}</p>
+
+      <!-- Size -->
+      <div style="margin-bottom:24px">
+        <div class="option-label">
+          Select Size
+          <span class="size-guide-link" onclick="Toast.show('Size guide coming soon!','info')">Size Guide</span>
+        </div>
+        <div class="size-options">${sizes}</div>
+      </div>
+
+      <!-- Color -->
+      <div style="margin-bottom:32px">
+        <div class="option-label" id="color-label">
+          Color: <span style="color:var(--text-primary)" id="selected-color-name">${selectedColorName || ''}</span>
+        </div>
+        <div class="color-options">${colors}</div>
+      </div>
+
+      <!-- Add to Cart -->
+      <div class="add-to-cart-row">
+        <div class="quantity-control">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <input type="number" class="qty-input" id="qty-input" value="1" min="1" max="20" onchange="qty = parseInt(this.value)||1">
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+        <button class="btn btn-primary" style="flex:1" onclick="addToCartDetail()">Add to Cart</button>
+      </div>
+
+      <button class="btn btn-ghost" style="width:100%;margin-top:8px" onclick="Toast.show('Wishlist coming soon!','info')">
+        ♡ Add to Wishlist
+      </button>
+
+      <div class="product-meta">
+        <div class="product-meta-item"><strong>SKU</strong> LX-${p.id.toString().padStart(4,'0')}</div>
+        <div class="product-meta-item"><strong>Category</strong> ${p.category}</div>
+        <div class="product-meta-item"><strong>Tags</strong> ${(p.tags || []).join(', ')}</div>
+        <div class="product-meta-item"><strong>Availability</strong> <span style="color:#4CAF50">In Stock</span></div>
+      </div>
+    </div>
+  `;
+
+  // Tab details content
+  document.getElementById('tab-details-content').innerHTML = `
+    <p style="color:var(--text-secondary);line-height:1.9;margin-bottom:24px">${p.description}</p>
+    <h4 style="margin-bottom:16px">Product Features</h4>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--text-secondary);font-size:0.88rem">
+      <li>✦ Premium quality materials</li>
+      <li>✦ Expertly tailored construction</li>
+      <li>✦ Available in sizes ${(p.sizes||[]).join(', ')}</li>
+      <li>✦ ${(p.colors||[]).length} colorways available</li>
+      <li>✦ Dry clean or gentle hand wash recommended</li>
+      <li>✦ Made with sustainable practices</li>
+    </ul>
+  `;
+}
+
+function switchImage(src, thumb) {
+  document.getElementById('main-image').src = src;
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+
+function selectSize(size, btn) {
+  selectedSize = size;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectColor(color, name, el) {
+  selectedColor = color;
+  selectedColorName = name;
+  document.querySelectorAll('.color-opt').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('selected-color-name').textContent = name;
+}
+
+function changeQty(delta) {
+  qty = Math.max(1, qty + delta);
+  document.getElementById('qty-input').value = qty;
+}
+
+function addToCartDetail() {
+  if (!selectedSize) { Toast.show('Please select a size', 'error'); return; }
+  if (!selectedColor) { Toast.show('Please select a color', 'error'); return; }
+  Cart.addItem(currentProduct, selectedSize, selectedColor, selectedColorName, qty);
+  Toast.show(`"${currentProduct.name}" added to cart!`);
+}
+
+function renderProductReviews(productId) {
+  const container = document.getElementById('reviews-container');
+  const productReviews = Reviews.getForProduct(productId);
+  const allReviews = [...productReviews];
+
+  // Add some sample reviews
+  if (allReviews.length === 0 && currentProduct) {
+    allReviews.push(
+      { id: 1, author: 'Emma R.', rating: 5, text: 'Absolutely stunning quality. The fabric is luxurious and the fit is perfect. I\'ve received so many compliments every time I wear it.', createdAt: '2025-01-15', verified: true },
+      { id: 2, author: 'Marcus T.', rating: 4, text: 'Great piece, very well made. Runs slightly large so I would suggest sizing down. The color is exactly as shown in the photos.', createdAt: '2025-01-08', verified: true },
+      { id: 3, author: 'Priya S.', rating: 5, text: 'I was skeptical ordering online but the quality exceeded my expectations. The packaging is gorgeous and it arrived in perfect condition.', createdAt: '2024-12-28', verified: true }
+    );
+  }
+
+  document.getElementById('review-count-badge').textContent = `(${allReviews.length + currentProduct.reviews})`;
+
+  const avgRating = allReviews.length > 0
+    ? (allReviews.reduce((s, r) => s + r.rating, 0) / allReviews.length).toFixed(1)
+    : currentProduct.rating;
+
+  container.innerHTML = `
+    <!-- Summary -->
+    <div class="review-summary">
+      <div class="review-big-number">
+        <div class="number">${avgRating}</div>
+        ${Utils.renderStars(avgRating)}
+        <div class="out-of">out of 5</div>
+      </div>
+      <div class="rating-bars">
+        ${[5,4,3,2,1].map(n => {
+          const count = allReviews.filter(r => r.rating === n).length;
+          const pct = allReviews.length ? Math.round(count / allReviews.length * 100) : (n === 5 ? 70 : n === 4 ? 20 : 5);
+          return `
+            <div class="rating-bar-row">
+              <span>${n}★</span>
+              <div class="rating-bar-track"><div class="rating-bar-fill" style="width:${pct}%"></div></div>
+              <span style="min-width:30px">${pct}%</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Write Review Form -->
+    <div class="write-review-form">
+      <h4 style="margin-bottom:8px">Write a Review</h4>
+      <p style="color:var(--text-secondary);font-size:0.82rem;margin-bottom:20px">Share your experience with this product</p>
+      <div class="rating-picker" id="rating-picker">
+        ${[1,2,3,4,5].map(n => `<button class="rating-star-btn" data-val="${n}" onclick="setReviewRating(${n})">★</button>`).join('')}
+      </div>
+      <div class="form-row" style="margin-bottom:16px">
+        <div class="form-group" style="margin:0">
+          <input type="text" class="form-input" id="review-name" placeholder="Your name">
+        </div>
+        <div class="form-group" style="margin:0">
+          <input type="email" class="form-input" id="review-email" placeholder="Your email (optional)">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <textarea class="form-textarea" id="review-text" placeholder="Tell us about your experience..." style="min-height:100px"></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="submitReview()">Submit Review</button>
+    </div>
+
+    <!-- Review List -->
+    <div id="review-list">
+      ${allReviews.map(r => `
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <div class="reviewer-avatar">${r.author.charAt(0)}</div>
+              <div>
+                <div class="reviewer-name">${r.author}</div>
+                <div class="review-date">${Utils.formatDate(r.createdAt)}</div>
+              </div>
+            </div>
+            <div>
+              ${Utils.renderStars(r.rating)}
+              ${r.verified ? '<div class="review-verified">✓ Verified Purchase</div>' : ''}
+            </div>
+          </div>
+          <p class="review-text">${r.text}</p>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+let reviewRating = 0;
+
+function setReviewRating(val) {
+  reviewRating = val;
+  document.querySelectorAll('.rating-star-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i < val);
+  });
+}
+
+function submitReview() {
+  const name = document.getElementById('review-name').value.trim();
+  const text = document.getElementById('review-text').value.trim();
+
+  if (!name) { Toast.show('Please enter your name', 'error'); return; }
+  if (!reviewRating) { Toast.show('Please select a rating', 'error'); return; }
+  if (!text) { Toast.show('Please write a review', 'error'); return; }
+
+  Reviews.add({
+    productId: currentProduct.id,
+    author: name,
+    rating: reviewRating,
+    text,
+    verified: false
+  });
+
+  Toast.show('Review submitted! Thank you.', 'success');
+  renderProductReviews(currentProduct.id);
+}
+
+function renderRelated(product) {
+  const related = Products.getAll()
+    .filter(p => p.category === product.category && p.id !== product.id)
+    .slice(0, 4);
+  document.getElementById('related-products').innerHTML = related.map(p => renderProductCard(p)).join('');
+}
+
+function initTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    });
+  });
+}
+</script>
+</body>
+</html>

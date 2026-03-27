@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — LUXE STORE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+<div id="toast-container"></div>
+
+<div class="mobile-menu">
+  <button class="mobile-close">×</button>
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="login.html">Account</a></li>
+  </ul>
+</div>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo">LUXE<span>.</span></a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <a href="login.html" class="navbar-icon-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="cart.html" class="navbar-icon-btn active-icon" style="position:relative;color:var(--accent-gold)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <button class="menu-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="breadcrumb-sep">›</span><span>Cart</span>
+    </div>
+    <h1>Your Cart</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cart-layout" id="cart-layout">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 LUXE Store.</p>
+      <a href="shop.html" class="text-gold">← Continue Shopping</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/core.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', renderCart);
+
+function renderCart() {
+  const items = Cart.getItems();
+  const layout = document.getElementById('cart-layout');
+
+  if (items.length === 0) {
+    layout.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="empty-icon">🛍️</div>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added any pieces yet</p>
+        <a href="shop.html" class="btn btn-primary">Explore Collection</a>
+      </div>
+    `;
+    return;
+  }
+
+  const subtotal = Cart.getTotal();
+  const shipping = subtotal > 200 ? 0 : 15;
+  const tax = subtotal * 0.08;
+  const total = subtotal + shipping + tax;
+
+  const itemsHtml = items.map(item => `
+    <div class="cart-item" id="cart-item-${item.key.replace(/[^a-z0-9]/gi,'_')}">
+      <img class="cart-item-img" src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80'">
+      <div>
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-variant">Size: ${item.size} · Color: ${item.colorName}</div>
+        <div class="cart-item-price">${Utils.formatPrice(item.price)}</div>
+        <div class="cart-item-controls">
+          <div class="quantity-control">
+            <button class="qty-btn" onclick="updateQty('${item.key}', ${item.qty - 1})">−</button>
+            <input type="number" class="qty-input" value="${item.qty}" min="1" max="20" style="width:48px;height:40px"
+              onchange="updateQty('${item.key}', parseInt(this.value)||1)">
+            <button class="qty-btn" onclick="updateQty('${item.key}', ${item.qty + 1})">+</button>
+          </div>
+          <button class="remove-btn" onclick="removeItem('${item.key}')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            Remove
+          </button>
+        </div>
+      </div>
+      <div class="cart-item-total">
+        <div class="price-big">${Utils.formatPrice(item.price * item.qty)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  layout.innerHTML = `
+    <div>
+      <div class="cart-header">
+        <h2>Shopping Bag <span class="text-muted" style="font-size:0.9rem;font-family:var(--font-body)">(${Cart.getCount()} items)</span></h2>
+        <button class="btn btn-ghost btn-sm" onclick="clearCart()">Clear All</button>
+      </div>
+      ${itemsHtml}
+      <div style="margin-top:24px">
+        <a href="shop.html" class="btn btn-ghost btn-sm">
+          ← Continue Shopping
+        </a>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <h3>Order Summary</h3>
+
+      <form class="promo-form" onsubmit="applyPromo(event)">
+        <input type="text" class="form-input" id="promo-input" placeholder="Promo code">
+        <button type="submit" class="btn btn-dark btn-sm">Apply</button>
+      </form>
+
+      <div class="summary-row">
+        <span class="label">Subtotal (${Cart.getCount()} items)</span>
+        <span>${Utils.formatPrice(subtotal)}</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Shipping</span>
+        <span>${shipping === 0 ? '<span style="color:#4CAF50">Free</span>' : Utils.formatPrice(shipping)}</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Tax (8%)</span>
+        <span>${Utils.formatPrice(tax)}</span>
+      </div>
+      <div id="discount-row" class="summary-row" style="display:none">
+        <span class="label" style="color:#4CAF50">Discount</span>
+        <span id="discount-amount" style="color:#4CAF50"></span>
+      </div>
+      <div class="summary-row total">
+        <span class="label">Total</span>
+        <span class="value" id="total-display">${Utils.formatPrice(total)}</span>
+      </div>
+
+      ${shipping > 0 ? `<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:20px">Add ${Utils.formatPrice(200 - subtotal)} more for free shipping</p>` : ''}
+
+      <a href="checkout.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px">
+        Proceed to Checkout
+      </a>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px;font-size:0.72rem;color:var(--text-muted)">
+        🔒 Secure Checkout
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:16px;justify-content:center">
+        <span style="font-size:1.5rem">💳</span>
+        <span style="font-size:1.5rem">🏦</span>
+        <span style="font-size:1.5rem">📱</span>
+      </div>
+    </div>
+  `;
+}
+
+function updateQty(key, qty) {
+  if (qty < 1) { removeItem(key); return; }
+  Cart.updateQty(key, qty);
+  renderCart();
+}
+
+function removeItem(key) {
+  Cart.removeItem(key);
+  Toast.show('Item removed from cart', 'info');
+  renderCart();
+}
+
+function clearCart() {
+  if (confirm('Clear all items from cart?')) {
+    Cart.clear();
+    renderCart();
+    Toast.show('Cart cleared', 'info');
+  }
+}
+
+let discount = 0;
+function applyPromo(e) {
+  e.preventDefault();
+  const code = document.getElementById('promo-input').value.trim().toUpperCase();
+  const codes = { LUXE10: 0.10, LUXE20: 0.20, WELCOME: 0.15 };
+  if (codes[code]) {
+    const subtotal = Cart.getTotal();
+    discount = subtotal * codes[code];
+    document.getElementById('discount-row').style.display = 'flex';
+    document.getElementById('discount-amount').textContent = '-' + Utils.formatPrice(discount);
+    const shipping = subtotal > 200 ? 0 : 15;
+    const tax = subtotal * 0.08;
+    document.getElementById('total-display').textContent = Utils.formatPrice(subtotal + shipping + tax - discount);
+    Toast.show(`Promo code applied! ${Math.round(codes[code]*100)}% off`, 'success');
+  } else {
+    Toast.show('Invalid promo code', 'error');
+  }
+}
+</script>
+</body>
+</html>

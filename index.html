@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXE STORE — Elevated Fashion</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loading-logo">LUXE<span>.</span></div>
+  <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+  <div class="loading-text">Curating your experience</div>
+</div>
+
+<!-- Custom Cursor -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- Search Overlay -->
+<div id="search-overlay" class="search-overlay">
+  <button class="search-close">×</button>
+  <form id="search-form" class="search-form">
+    <input type="text" id="search-input" class="search-input" placeholder="Search for pieces..." autocomplete="off">
+    <button type="submit" class="search-submit">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </form>
+  <div class="search-hint">Press <kbd>ESC</kbd> to close • <kbd>⌘K</kbd> to open</div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <button class="mobile-close">×</button>
+  <nav>
+    <ul class="mobile-menu-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="feedback.html">Reviews</a></li>
+      <li><a href="login.html">Account</a></li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo">LUXE<span>.</span></a>
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+      <li><a href="shop.html?category=Dresses">Dresses</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="navbar-icon-btn" data-open-search title="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="login.html" class="navbar-icon-btn" title="Account">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="cart.html" class="navbar-icon-btn" title="Cart" style="position:relative">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <button class="menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">New Collection 2025</span>
+    </div>
+    <h1 class="hero-title">
+      Wear Your<br>
+      <em>Story</em><br>
+      With Pride
+    </h1>
+    <p class="hero-description">
+      Curated luxury fashion for those who understand that clothing is the language of the self. Every piece tells a story — what will yours say?
+    </p>
+    <div class="hero-cta">
+      <a href="shop.html" class="btn btn-primary btn-lg">Explore Collection</a>
+      <a href="shop.html?category=new" class="btn btn-ghost">New Arrivals</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-number">2K+</div>
+        <div class="hero-stat-label">Curated Pieces</div>
+      </div>
+      <div>
+        <div class="hero-stat-number">50K</div>
+        <div class="hero-stat-label">Happy Clients</div>
+      </div>
+      <div>
+        <div class="hero-stat-number">4.9★</div>
+        <div class="hero-stat-label">Average Rating</div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img class="hero-image-main" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1000&q=80" alt="Fashion hero">
+    <div class="hero-visual-overlay"></div>
+    <div class="hero-product-card">
+      <div class="product-category">Featured</div>
+      <div class="product-name">Obsidian Trench Coat</div>
+      <div class="product-price">$289.00</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span>Free Shipping on Orders over $200</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>New Collection Available Now</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Exclusive Members Discount</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Sustainable & Ethical Fashion</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Easy 30-Day Returns</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Premium Quality Guaranteed</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Curated By Fashion Experts</div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories-section">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-label">Shop By Category</span>
+      <h2 class="section-title">Dress the Part</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card reveal" onclick="window.location.href='shop.html?category=Outerwear'">
+        <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=800&q=80" alt="Outerwear">
+        <div class="category-overlay">
+          <div class="category-label">Category</div>
+          <h3 class="category-title">Outerwear</h3>
+          <a href="shop.html?category=Outerwear" class="btn btn-outline btn-sm">Shop Now</a>
+        </div>
+      </div>
+      <div class="category-card reveal delay-1" onclick="window.location.href='shop.html?category=Dresses'">
+        <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&q=80" alt="Dresses">
+        <div class="category-overlay">
+          <div class="category-label">Category</div>
+          <h3 class="category-title">Dresses</h3>
+          <a href="shop.html?category=Dresses" class="btn btn-outline btn-sm">Shop Now</a>
+        </div>
+      </div>
+      <div class="category-card reveal delay-2" onclick="window.location.href='shop.html?category=Tops'">
+        <img src="https://images.unsplash.com/photo-1588099768531-a72d4a198538?w=600&q=80" alt="Tops">
+        <div class="category-overlay">
+          <div class="category-label">Category</div>
+          <h3 class="category-title">Tops</h3>
+          <a href="shop.html?category=Tops" class="btn btn-outline btn-sm">Shop Now</a>
+        </div>
+      </div>
+      <div class="category-card reveal delay-3" onclick="window.location.href='shop.html?category=Knitwear'">
+        <img src="https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=600&q=80" alt="Knitwear">
+        <div class="category-overlay">
+          <div class="category-label">Category</div>
+          <h3 class="category-title">Knitwear</h3>
+          <a href="shop.html?category=Knitwear" class="btn btn-outline btn-sm">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured-section">
+  <div class="container">
+    <div class="featured-header">
+      <div class="reveal">
+        <span class="section-label">Handpicked For You</span>
+        <h2 class="section-title">Featured Pieces</h2>
+        <div class="section-divider"></div>
+      </div>
+      <a href="shop.html" class="btn btn-outline reveal delay-2">View All</a>
+    </div>
+    <div class="product-grid" id="featured-products"></div>
+  </div>
+</section>
+
+<!-- NEW ARRIVALS -->
+<section class="new-arrivals">
+  <div class="container">
+    <div class="arrivals-grid">
+      <div class="arrivals-text reveal-left">
+        <span class="section-label">Just Landed</span>
+        <h2 class="section-title">New<br><em style="font-style:italic;color:var(--accent-gold)">Arrivals</em></h2>
+        <div class="section-divider"></div>
+        <p>The latest additions to our carefully curated collection. Each piece selected for its ability to transform an outfit from ordinary to unforgettable.</p>
+        <a href="shop.html?badge=new" class="btn btn-primary">Shop New Arrivals</a>
+      </div>
+      <div class="arrivals-products reveal-right" id="new-arrivals-products"></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Stay Connected</span>
+      <h2 class="section-title">Join the Inner Circle</h2>
+      <div class="section-divider center"></div>
+      <p class="section-subtitle text-muted" style="margin: 0 auto; text-align:center">
+        Get exclusive access to new arrivals, private sales, and style inspiration curated just for you.
+      </p>
+    </div>
+    <form class="newsletter-form reveal delay-2" onsubmit="handleNewsletter(event)">
+      <input type="email" class="form-input" placeholder="Your email address" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+    <p class="text-muted text-center reveal delay-3" style="font-size:0.72rem;margin-top:12px">
+      No spam, ever. Unsubscribe at any time.
+    </p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-label">What People Say</span>
+      <h2 class="section-title">Loved by Fashion Lovers</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="testimonials-grid" id="testimonials-grid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">LUXE<span>.</span></div>
+        <p>Elevating everyday dressing through thoughtfully curated fashion. We believe that what you wear is a reflection of who you are.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link">𝕏</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">ig</a>
+          <a href="#" class="social-link">fb</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Shop</div>
+        <ul class="footer-links">
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+          <li><a href="shop.html?category=Dresses">Dresses</a></li>
+          <li><a href="shop.html?category=Tops">Tops</a></li>
+          <li><a href="shop.html?badge=new">New Arrivals</a></li>
+          <li><a href="shop.html?sort=sale">Sale</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Customer</div>
+        <ul class="footer-links">
+          <li><a href="login.html">My Account</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="#">Order Tracking</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="feedback.html">Reviews</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Info</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LUXE Store. All rights reserved.</p>
+      <p>Crafted with care · Delivered with love</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/core.js"></script>
+<script>
+  // Render featured products
+  document.addEventListener('DOMContentLoaded', () => {
+    const featured = Products.getAll().filter(p => p.featured).slice(0, 4);
+    document.getElementById('featured-products').innerHTML = featured.map(p => renderProductCard(p, 'reveal')).join('');
+
+    const newOnes = Products.getAll().filter(p => p.badge === 'new').slice(0, 3);
+    document.getElementById('new-arrivals-products').innerHTML = newOnes.map(p => renderProductCard(p)).join('');
+
+    // Testimonials
+    const testimonials = [
+      { text: "Absolutely stunning quality. The Obsidian Trench Coat is everything I dreamed it would be — the fabric, the cut, the attention to detail.", author: "S", name: "Sofia M.", role: "Verified Buyer", rating: 5 },
+      { text: "I've been shopping at LUXE for two years now and the consistency in quality and service never fails to impress. This is what luxury fashion should feel like.", author: "J", name: "James K.", role: "Verified Buyer", rating: 5 },
+      { text: "The Cashmere Oversized Sweater is the most comfortable thing I've ever worn. It arrived beautifully packaged and I received so many compliments.", author: "A", name: "Amara T.", role: "Verified Buyer", rating: 5 }
+    ];
+
+    document.getElementById('testimonials-grid').innerHTML = testimonials.map((t, i) => `
+      <div class="testimonial-card reveal delay-${i+1}">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">${t.text}</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">${t.author}</div>
+          <div>
+            <div class="author-name">${t.name}</div>
+            <div class="author-role">${t.role}</div>
+            <div class="stars" style="margin-top:4px">${'★'.repeat(t.rating)}</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Re-run scroll reveal for dynamically added elements
+    initScrollReveal();
+  });
+
+  function handleNewsletter(e) {
+    e.preventDefault();
+    Toast.show('Welcome to the inner circle! 🎉', 'success');
+    e.target.reset();
+  }
+</script>
+</body>
+</html>

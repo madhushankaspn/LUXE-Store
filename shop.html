@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — LUXE STORE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+<div id="toast-container"></div>
+
+<div id="search-overlay" class="search-overlay">
+  <button class="search-close">×</button>
+  <form id="search-form" class="search-form">
+    <input type="text" id="search-input" class="search-input" placeholder="Search for pieces..." autocomplete="off">
+    <button type="submit" class="search-submit">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </form>
+</div>
+
+<div class="mobile-menu">
+  <button class="mobile-close">×</button>
+  <ul class="mobile-menu-nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="feedback.html">Reviews</a></li>
+    <li><a href="login.html">Account</a></li>
+  </ul>
+</div>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo">LUXE<span>.</span></a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+      <li><a href="shop.html?category=Dresses">Dresses</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="navbar-icon-btn" data-open-search>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="login.html" class="navbar-icon-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="cart.html" class="navbar-icon-btn" style="position:relative">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <button class="menu-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <span id="hero-category">All Products</span>
+    </div>
+    <h1 id="shop-title">The Collection</h1>
+    <p class="text-muted">Thoughtfully curated pieces for the modern wardrobe</p>
+  </div>
+</div>
+
+<!-- Shop Layout -->
+<div class="container">
+  <div class="shop-layout">
+
+    <!-- Sidebar -->
+    <aside class="filters-sidebar">
+      <div class="filter-block">
+        <div class="filter-title">Categories</div>
+        <div class="filter-options" id="category-filters">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title">Size</div>
+        <div class="filter-options" id="size-filters">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title">Price Range</div>
+        <div class="price-range">
+          <input type="range" class="price-slider" id="price-max" min="50" max="600" value="600" step="10">
+          <div class="price-labels">
+            <span>$0</span>
+            <span>Up to <span id="price-display">$600</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title">Availability</div>
+        <div class="filter-options">
+          <label class="filter-option active" id="in-stock-filter">
+            <div class="filter-checkbox"><span class="filter-checkbox-check">✓</span></div>
+            <span class="filter-option-label">In Stock Only</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-ghost btn-sm" id="clear-filters" style="width:100%">Clear All Filters</button>
+    </aside>
+
+    <!-- Main Products -->
+    <main class="shop-main">
+      <div class="shop-toolbar">
+        <div class="shop-count" id="shop-count">Showing <strong>0</strong> products</div>
+        <div class="shop-toolbar-right">
+          <div class="view-toggle">
+            <button class="view-btn active" id="grid-view" title="Grid View">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+            </button>
+            <button class="view-btn" id="list-view" title="List View">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+          </div>
+          <select class="sort-select" id="sort-select">
+            <option value="">Sort By</option>
+            <option value="newest">Newest</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+            <option value="name-asc">Name: A–Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="active-filters" id="active-filters"></div>
+
+      <div class="product-grid" id="products-grid">
+        <!-- Products rendered by JS -->
+      </div>
+
+      <div id="no-products" class="empty-state hidden">
+        <div class="empty-icon">🔍</div>
+        <h3>No products found</h3>
+        <p>Try adjusting your filters or search term</p>
+        <button class="btn btn-outline" onclick="clearAllFilters()">Clear Filters</button>
+      </div>
+
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 LUXE Store. All rights reserved.</p>
+      <a href="index.html" class="text-gold">← Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/core.js"></script>
+<script>
+// ---- SHOP STATE ----
+let activeFilters = {
+  category: Utils.getQueryParam('category') || 'All',
+  size: null,
+  maxPrice: 600,
+  sort: '',
+  search: Utils.getQueryParam('search') || ''
+};
+
+const ITEMS_PER_PAGE = 8;
+let currentPage = 1;
+
+// ---- INIT ----
+document.addEventListener('DOMContentLoaded', () => {
+  renderCategoryFilters();
+  renderSizeFilters();
+  setupEventListeners();
+  applyFilters();
+
+  // Set title from search
+  if (activeFilters.search) {
+    document.getElementById('shop-title').textContent = `Search: "${activeFilters.search}"`;
+    document.getElementById('hero-category').textContent = 'Search Results';
+  } else if (activeFilters.category && activeFilters.category !== 'All') {
+    document.getElementById('shop-title').textContent = activeFilters.category;
+    document.getElementById('hero-category').textContent = activeFilters.category;
+  }
+});
+
+function renderCategoryFilters() {
+  const container = document.getElementById('category-filters');
+  container.innerHTML = CATEGORIES.map(cat => `
+    <label class="filter-option ${cat === activeFilters.category ? 'active' : ''}" data-category="${cat}">
+      <div class="filter-checkbox"><span class="filter-checkbox-check">✓</span></div>
+      <span class="filter-option-label">${cat}</span>
+    </label>
+  `).join('');
+
+  container.querySelectorAll('.filter-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      activeFilters.category = opt.dataset.category;
+      container.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      currentPage = 1;
+      applyFilters();
+    });
+  });
+}
+
+function renderSizeFilters() {
+  const container = document.getElementById('size-filters');
+  container.innerHTML = SIZES.map(size => `
+    <label class="filter-option" data-size="${size}">
+      <div class="filter-checkbox"><span class="filter-checkbox-check">✓</span></div>
+      <span class="filter-option-label">${size}</span>
+    </label>
+  `).join('');
+
+  container.querySelectorAll('.filter-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const isActive = opt.classList.toggle('active');
+      activeFilters.size = isActive ? opt.dataset.size : null;
+      // Deactivate others
+      if (isActive) {
+        container.querySelectorAll('.filter-option').forEach(o => {
+          if (o !== opt) o.classList.remove('active');
+        });
+      }
+      currentPage = 1;
+      applyFilters();
+    });
+  });
+}
+
+function setupEventListeners() {
+  const priceSlider = document.getElementById('price-max');
+  const priceDisplay = document.getElementById('price-display');
+  priceSlider.addEventListener('input', () => {
+    activeFilters.maxPrice = parseInt(priceSlider.value);
+    priceDisplay.textContent = '$' + priceSlider.value;
+    currentPage = 1;
+    applyFilters();
+  });
+
+  document.getElementById('sort-select').addEventListener('change', e => {
+    activeFilters.sort = e.target.value;
+    applyFilters();
+  });
+
+  document.getElementById('clear-filters').addEventListener('click', clearAllFilters);
+
+  document.getElementById('grid-view').addEventListener('click', () => {
+    document.getElementById('products-grid').style.gridTemplateColumns = '';
+    document.getElementById('grid-view').classList.add('active');
+    document.getElementById('list-view').classList.remove('active');
+  });
+
+  document.getElementById('list-view').addEventListener('click', () => {
+    document.getElementById('products-grid').style.gridTemplateColumns = '1fr';
+    document.getElementById('list-view').classList.add('active');
+    document.getElementById('grid-view').classList.remove('active');
+  });
+}
+
+function applyFilters() {
+  let products = activeFilters.search
+    ? Products.search(activeFilters.search)
+    : Products.filter({
+        category: activeFilters.category,
+        size: activeFilters.size,
+        maxPrice: activeFilters.maxPrice,
+        sort: activeFilters.sort
+      });
+
+  renderActiveFilterTags();
+
+  const total = products.length;
+  document.getElementById('shop-count').innerHTML = `Showing <strong>${total}</strong> product${total !== 1 ? 's' : ''}`;
+
+  // Paginate
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  const pageProducts = products.slice(start, start + ITEMS_PER_PAGE);
+
+  const grid = document.getElementById('products-grid');
+  const noProducts = document.getElementById('no-products');
+
+  if (pageProducts.length === 0) {
+    grid.innerHTML = '';
+    noProducts.classList.remove('hidden');
+  } else {
+    noProducts.classList.add('hidden');
+    grid.innerHTML = pageProducts.map(p => renderProductCard(p, 'reveal')).join('');
+    initScrollReveal();
+  }
+
+  renderPagination(total);
+}
+
+function renderActiveFilterTags() {
+  const container = document.getElementById('active-filters');
+  const tags = [];
+
+  if (activeFilters.category && activeFilters.category !== 'All') {
+    tags.push({ label: activeFilters.category, clear: () => { activeFilters.category = 'All'; renderCategoryFilters(); } });
+  }
+  if (activeFilters.size) {
+    tags.push({ label: 'Size: ' + activeFilters.size, clear: () => { activeFilters.size = null; document.querySelectorAll('#size-filters .filter-option').forEach(o => o.classList.remove('active')); } });
+  }
+  if (activeFilters.maxPrice < 600) {
+    tags.push({ label: 'Under $' + activeFilters.maxPrice, clear: () => { activeFilters.maxPrice = 600; document.getElementById('price-max').value = 600; document.getElementById('price-display').textContent = '$600'; } });
+  }
+  if (activeFilters.search) {
+    tags.push({ label: 'Search: "' + activeFilters.search + '"', clear: () => { activeFilters.search = ''; document.getElementById('shop-title').textContent = 'The Collection'; } });
+  }
+
+  container.innerHTML = tags.map((t, i) => `
+    <div class="active-filter-tag">
+      ${t.label}
+      <button onclick="clearFilterTag(${i})">×</button>
+    </div>
+  `).join('');
+
+  window._filterTagClears = tags.map(t => t.clear);
+}
+
+function clearFilterTag(i) {
+  window._filterTagClears[i]();
+  currentPage = 1;
+  applyFilters();
+}
+
+function clearAllFilters() {
+  activeFilters = { category: 'All', size: null, maxPrice: 600, sort: '', search: '' };
+  document.getElementById('price-max').value = 600;
+  document.getElementById('price-display').textContent = '$600';
+  document.getElementById('sort-select').value = '';
+  document.getElementById('shop-title').textContent = 'The Collection';
+  document.getElementById('hero-category').textContent = 'All Products';
+  renderCategoryFilters();
+  renderSizeFilters();
+  currentPage = 1;
+  applyFilters();
+}
+
+function renderPagination(total) {
+  const pages = Math.ceil(total / ITEMS_PER_PAGE);
+  const container = document.getElementById('pagination');
+  if (pages <= 1) { container.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+  for (let i = 1; i <= pages; i++) {
+    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === pages ? 'disabled' : ''}>›</button>`;
+  container.innerHTML = html;
+}
+
+function goToPage(page) {
+  if (page < 1) return;
+  currentPage = page;
+  applyFilters();
+  window.scrollTo({ top: 300, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

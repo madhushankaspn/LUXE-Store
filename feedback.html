@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviews & Feedback — LUXE STORE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <style>
+    .feedback-hero { padding: 80px 0 60px; text-align: center; }
+    .feedback-hero .overline { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .feedback-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 20px; }
+    .feedback-hero p { color: var(--text-secondary); max-width: 500px; margin: 0 auto; font-size: 0.95rem; line-height: 1.8; }
+
+    .feedback-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 60px; }
+    .feedback-stat { background: var(--surface); padding: 32px 24px; text-align: center; }
+    .feedback-stat .num { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--gold); display: block; margin-bottom: 6px; }
+    .feedback-stat .label { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+
+    .feedback-grid { display: grid; grid-template-columns: 380px 1fr; gap: 50px; padding-bottom: 100px; align-items: start; }
+
+    .write-review-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 36px; position: sticky; top: 100px; }
+    .write-review-card h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 6px; }
+    .write-review-card .subtitle { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 28px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary); padding: 12px 14px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; border-radius: 2px; transition: border-color 0.3s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); }
+    .form-group select option { background: var(--bg-secondary); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .star-picker { display: flex; gap: 8px; cursor: pointer; margin-bottom: 4px; }
+    .star-picker span { font-size: 1.6rem; color: var(--border); transition: color 0.15s, transform 0.15s; }
+    .star-picker span.active { color: #f59e0b; transform: scale(1.1); }
+    .star-picker span:hover { color: #f59e0b; }
+    .btn-submit { width: 100%; padding: 14px; font-size: 0.8rem; letter-spacing: 3px; }
+
+    .reviews-panel h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; }
+    .reviews-toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 28px; flex-wrap: wrap; }
+    .reviews-toolbar select { background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary); padding: 9px 14px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; border-radius: 2px; }
+    .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { padding: 7px 16px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); font-family: 'Montserrat', sans-serif; font-size: 0.72rem; letter-spacing: 1px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .reviews-list { display: flex; flex-direction: column; gap: 20px; }
+    .review-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 28px; transition: border-color 0.3s; }
+    .review-card:hover { border-color: rgba(201,168,76,0.3); }
+    .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .reviewer-info { display: flex; align-items: center; gap: 14px; }
+    .reviewer-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; color: #000; flex-shrink: 0; }
+    .reviewer-name { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+    .reviewer-meta { font-size: 0.72rem; color: var(--text-muted); }
+    .review-rating { display: flex; align-items: center; gap: 8px; }
+    .review-stars { color: #f59e0b; letter-spacing: 2px; font-size: 0.85rem; }
+    .review-score { font-size: 0.78rem; color: var(--text-muted); }
+    .review-product { font-size: 0.72rem; letter-spacing: 1px; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+    .review-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+    .review-body { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.8; }
+    .review-helpful { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-size: 0.72rem; color: var(--text-muted); }
+    .helpful-btn { background: none; border: 1px solid var(--border); color: var(--text-muted); padding: 4px 12px; border-radius: 2px; cursor: pointer; font-size: 0.7rem; font-family: 'Montserrat', sans-serif; transition: all 0.2s; }
+    .helpful-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .verified-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: #22c55e; }
+    .empty-reviews { text-align: center; padding: 60px; color: var(--text-muted); }
+    .empty-reviews .icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
+    .load-more { text-align: center; margin-top: 32px; }
+
+    @media (max-width: 1024px) { .feedback-grid { grid-template-columns: 1fr; } .write-review-card { position: static; } }
+    @media (max-width: 768px) { .feedback-stats { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .feedback-stats { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><span></span><span></span><span></span></button>
+        <a href="index.html" class="logo"><span class="logo-text">LUXE</span></a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="shop.html?category=Outerwear">Outerwear</a></li>
+          <li><a href="shop.html?category=Dresses">Dresses</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="nav-icon-btn search-btn" id="searchBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <a href="login.html" class="nav-icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+          <a href="cart.html" class="nav-icon-btn cart-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-inner">
+      <form class="search-form" onsubmit="handleSearch(event)">
+        <input type="text" id="searchInput" placeholder="Search for pieces..." autocomplete="off" />
+        <button type="submit">→</button>
+      </form>
+      <button class="search-close" id="searchClose">✕</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="shop.html">Shop All</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Sign In</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <div class="feedback-hero reveal">
+      <div class="container">
+        <div class="overline">Community</div>
+        <h1>Customer Reviews</h1>
+        <p>Real stories from our community. We believe in transparency and genuine feedback from the people who wear our pieces.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="feedback-stats reveal" id="feedbackStats"></div>
+
+      <div class="feedback-grid">
+        <!-- Write Review -->
+        <div class="write-review-card reveal-left">
+          <h2>Share Your Experience</h2>
+          <p class="subtitle">Your honest feedback helps others shop with confidence.</p>
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="rName" placeholder="e.g. Sarah M." />
+          </div>
+          <div class="form-group">
+            <label>Product *</label>
+            <select id="rProduct"></select>
+          </div>
+          <div class="form-group">
+            <label>Rating *</label>
+            <div class="star-picker" id="starPicker">
+              <span data-val="1">★</span>
+              <span data-val="2">★</span>
+              <span data-val="3">★</span>
+              <span data-val="4">★</span>
+              <span data-val="5">★</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Review Title</label>
+            <input type="text" id="rTitle" placeholder="Summarize your experience" />
+          </div>
+          <div class="form-group">
+            <label>Your Review *</label>
+            <textarea id="rBody" placeholder="What did you love? How's the fit? Would you recommend it?"></textarea>
+          </div>
+          <button class="btn btn-primary btn-submit" onclick="submitReview()">Post Review</button>
+        </div>
+
+        <!-- Reviews List -->
+        <div class="reviews-panel reveal-right">
+          <h2>What Our Customers Say</h2>
+          <div class="reviews-toolbar">
+            <select id="sortReviews" onchange="renderReviews()">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="highest">Highest Rated</option>
+              <option value="lowest">Lowest Rated</option>
+            </select>
+            <div class="filter-btns" id="ratingFilters">
+              <button class="filter-btn active" onclick="setRatingFilter(0, this)">All</button>
+              <button class="filter-btn" onclick="setRatingFilter(5, this)">5★</button>
+              <button class="filter-btn" onclick="setRatingFilter(4, this)">4★</button>
+              <button class="filter-btn" onclick="setRatingFilter(3, this)">3★</button>
+              <button class="filter-btn" onclick="setRatingFilter(2, this)">≤2★</button>
+            </div>
+          </div>
+          <div class="reviews-list" id="reviewsList"></div>
+          <div class="load-more" id="loadMoreWrap" style="display:none;">
+            <button class="btn btn-outline" onclick="loadMore()">Load More Reviews</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">LUXE</div>
+          <p>Redefining luxury fashion for the modern wardrobe.</p>
+        </div>
+        <div class="footer-links"><h4>Shop</h4><ul><li><a href="shop.html">All Products</a></li></ul></div>
+        <div class="footer-links"><h4>Help</h4><ul><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-links"><h4>Account</h4><ul><li><a href="login.html">Sign In</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 LUXE Store. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <script src="js/core.js"></script>
+  <script>
+    let selectedRating = 0;
+    let ratingFilter = 0;
+    let showCount = 6;
+
+    const AVATAR_COLORS = ['#c9a84c','#00d4ff','#8b5cf6','#22c55e','#f59e0b','#ec4899'];
+    const SAMPLE_REVIEWS = [
+      { author: 'Alexandra V.', productId: 6, rating: 5, title: 'Absolutely Stunning', comment: 'The velvet evening dress exceeded every expectation. The quality is impeccable and the fit is perfection. I wore it to a gala and received compliments all night.', date: new Date(Date.now() - 2 * 86400000).toISOString(), verified: true },
+      { author: 'James K.', productId: 1, rating: 5, title: 'Best Coat I\'ve Ever Owned', comment: 'The Obsidian Trench Coat is worth every penny. The fabric is heavy without being bulky, and the cut is incredibly flattering. True luxury at its finest.', date: new Date(Date.now() - 5 * 86400000).toISOString(), verified: true },
+      { author: 'Mia L.', productId: 4, rating: 4, title: 'Incredibly Soft Cashmere', comment: 'The cashmere sweater is divine — so soft and the oversized fit is exactly as pictured. Docking one star only because sizing runs a bit large. Would order a size down next time.', date: new Date(Date.now() - 8 * 86400000).toISOString(), verified: true },
+      { author: 'Thomas R.', productId: 5, rating: 5, title: 'A Statement Piece', comment: 'The avant-garde blazer is unlike anything I own. The structured shoulders and unique cut make it a true conversation starter. Shipping was fast and packaging was beautiful.', date: new Date(Date.now() - 12 * 86400000).toISOString(), verified: false },
+      { author: 'Sophie H.', productId: 2, rating: 5, title: 'Luxurious Silk Finish', comment: 'The silk blouse drapes beautifully and the color is even richer in person. I\'ve washed it twice and it\'s held up perfectly. LUXE has become my go-to brand.', date: new Date(Date.now() - 16 * 86400000).toISOString(), verified: true },
+      { author: 'Daniel M.', productId: 10, rating: 4, title: 'Sleek and Functional', comment: 'Really impressed with the technical bomber. Great for transitional weather — the material is premium and the fit is exactly right. Delivery was quicker than expected.', date: new Date(Date.now() - 22 * 86400000).toISOString(), verified: false },
+      { author: 'Priya N.', productId: 9, rating: 5, title: 'Effortlessly Elegant', comment: 'The linen maxi dress is everything. Comfortable, beautiful, and incredibly versatile. I wore it to a beach wedding and everyone wanted to know where I got it.', date: new Date(Date.now() - 30 * 86400000).toISOString(), verified: true },
+      { author: 'Lucas F.', productId: 12, rating: 3, title: 'Good but Runs Small', comment: 'Beautiful leather quality and design, but definitely size up. I ordered my normal size and it was quite snug. Customer service was helpful with the exchange process though.', date: new Date(Date.now() - 36 * 86400000).toISOString(), verified: true },
+    ];
+
+    function seedReviews() {
+      const existing = Reviews.getAll();
+      if (existing.length === 0) {
+        SAMPLE_REVIEWS.forEach(r => Reviews.add(r));
+      }
+    }
+
+    function renderStats() {
+      const reviews = Reviews.getAll();
+      if (reviews.length === 0) return;
+      const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
+      const dist = [5,4,3,2,1].map(s => reviews.filter(r => r.rating === s).length);
+      const verified = reviews.filter(r => r.verified).length;
+
+      document.getElementById('feedbackStats').innerHTML = `
+        <div class="feedback-stat">
+          <span class="num">${avg.toFixed(1)}</span>
+          <span class="label">Average Rating</span>
+        </div>
+        <div class="feedback-stat">
+          <span class="num">${reviews.length}</span>
+          <span class="label">Total Reviews</span>
+        </div>
+        <div class="feedback-stat">
+          <span class="num">${Math.round((dist[0]/reviews.length)*100)}%</span>
+          <span class="label">5-Star Reviews</span>
+        </div>
+        <div class="feedback-stat">
+          <span class="num">${verified}</span>
+          <span class="label">Verified Purchases</span>
+        </div>`;
+    }
+
+    function populateProductSelect() {
+      const products = Products.getAll();
+      document.getElementById('rProduct').innerHTML = '<option value="">Select a product...</option>' +
+        products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+    }
+
+    function initStarPicker() {
+      const stars = document.querySelectorAll('.star-picker span');
+      stars.forEach(s => {
+        s.addEventListener('mouseover', () => {
+          const val = parseInt(s.dataset.val);
+          stars.forEach(x => x.classList.toggle('active', parseInt(x.dataset.val) <= val));
+        });
+        s.addEventListener('click', () => {
+          selectedRating = parseInt(s.dataset.val);
+          stars.forEach(x => x.classList.toggle('active', parseInt(x.dataset.val) <= selectedRating));
+        });
+      });
+      document.querySelector('.star-picker').addEventListener('mouseleave', () => {
+        const stars = document.querySelectorAll('.star-picker span');
+        stars.forEach(x => x.classList.toggle('active', parseInt(x.dataset.val) <= selectedRating));
+      });
+    }
+
+    function setRatingFilter(val, btn) {
+      ratingFilter = val;
+      showCount = 6;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderReviews();
+    }
+
+    function renderReviews() {
+      let reviews = Reviews.getAll();
+      const products = Products.getAll();
+      const sort = document.getElementById('sortReviews').value;
+
+      if (ratingFilter === 5) reviews = reviews.filter(r => r.rating === 5);
+      else if (ratingFilter === 4) reviews = reviews.filter(r => r.rating === 4);
+      else if (ratingFilter === 3) reviews = reviews.filter(r => r.rating === 3);
+      else if (ratingFilter === 2) reviews = reviews.filter(r => r.rating <= 2);
+
+      if (sort === 'newest') reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+      else if (sort === 'oldest') reviews.sort((a, b) => new Date(a.date) - new Date(b.date));
+      else if (sort === 'highest') reviews.sort((a, b) => b.rating - a.rating);
+      else reviews.sort((a, b) => a.rating - b.rating);
+
+      const visible = reviews.slice(0, showCount);
+      document.getElementById('loadMoreWrap').style.display = reviews.length > showCount ? 'block' : 'none';
+
+      if (visible.length === 0) {
+        document.getElementById('reviewsList').innerHTML = `
+          <div class="empty-reviews">
+            <div class="icon">⭐</div>
+            <p>No reviews match this filter.</p>
+          </div>`;
+        return;
+      }
+
+      document.getElementById('reviewsList').innerHTML = visible.map((r, i) => {
+        const p = products.find(x => x.id === r.productId);
+        const initials = r.author.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+        const color = AVATAR_COLORS[i % AVATAR_COLORS.length];
+        return `
+          <div class="review-card reveal">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar" style="background:${color}">${initials}</div>
+                <div>
+                  <div class="reviewer-name">${r.author}${r.verified ? ' <span class="verified-badge">✓ Verified</span>' : ''}</div>
+                  <div class="reviewer-meta">${Utils.formatDate(r.date)}</div>
+                </div>
+              </div>
+              <div class="review-rating">
+                <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+                <div class="review-score">${r.rating}.0</div>
+              </div>
+            </div>
+            ${p ? `<div class="review-product">Re: ${p.name}</div>` : ''}
+            ${r.title ? `<div class="review-title">${r.title}</div>` : ''}
+            <div class="review-body">${r.comment}</div>
+            <div class="review-helpful">
+              Was this helpful?
+              <button class="helpful-btn" onclick="Toast.show('Thanks for your feedback!', 'info')">👍 Yes</button>
+              <button class="helpful-btn" onclick="Toast.show('Thanks for your feedback!', 'info')">👎 No</button>
+            </div>
+          </div>`;
+      }).join('');
+      initScrollReveal();
+    }
+
+    function loadMore() {
+      showCount += 6;
+      renderReviews();
+    }
+
+    function submitReview() {
+      const name = document.getElementById('rName').value.trim();
+      const productId = parseInt(document.getElementById('rProduct').value);
+      const title = document.getElementById('rTitle').value.trim();
+      const body = document.getElementById('rBody').value.trim();
+
+      if (!name) { Toast.show('Please enter your name.', 'error'); return; }
+      if (!productId) { Toast.show('Please select a product.', 'error'); return; }
+      if (!selectedRating) { Toast.show('Please select a rating.', 'error'); return; }
+      if (!body) { Toast.show('Please write your review.', 'error'); return; }
+
+      Reviews.add({
+        author: name, productId, rating: selectedRating,
+        title, comment: body, date: new Date().toISOString(), verified: false
+      });
+
+      Toast.show('Review posted! Thank you for your feedback.', 'success');
+      document.getElementById('rName').value = '';
+      document.getElementById('rProduct').value = '';
+      document.getElementById('rTitle').value = '';
+      document.getElementById('rBody').value = '';
+      selectedRating = 0;
+      document.querySelectorAll('.star-picker span').forEach(s => s.classList.remove('active'));
+
+      renderStats();
+      renderReviews();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavbar();
+      initSearch();
+      initMobileMenu();
+      initScrollReveal();
+      initCursor();
+      seedReviews();
+      renderStats();
+      populateProductSelect();
+      initStarPicker();
+      renderReviews();
+    });
+  </script>
+</body>
+</html>
