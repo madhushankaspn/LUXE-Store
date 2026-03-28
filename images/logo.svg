@@ -1,0 +1,18 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Geometric diamond emblem -->
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c9a84c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer diamond (accent) -->
+  <path d="M 24 4 L 40 24 L 24 44 L 8 24 Z" fill="none" stroke="url(#goldGradient)" stroke-width="1.5" opacity="0.8"/>
+  
+  <!-- Inner diamond (main) -->
+  <path d="M 24 10 L 36 24 L 24 38 L 12 24 Z" fill="url(#goldGradient)" opacity="0.95"/>
+  
+  <!-- Center dot -->
+  <circle cx="24" cy="24" r="2.5" fill="white" opacity="0.9"/>
+</svg>
