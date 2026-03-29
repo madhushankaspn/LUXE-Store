@@ -9,8 +9,7 @@
 > _Add your screenshots here by replacing the paths below._
 
 
-| ![Home](<img width="1914" height="910" alt="image" src="https://github.com/user-attachments/assets/d2273b6f-5aa3-4cd4-9d95-1d1ec528df45" />
-) 
+| ![Home](screenshots/home.png) |
 
 ## ✨ Features
 
