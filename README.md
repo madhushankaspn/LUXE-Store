@@ -10,7 +10,8 @@
 
 | Home | Shop | Product Detail |
 |------|------|----------------|
-| ![Home](screenshots/home.png) | ![Shop](screenshots/shop.png) | ![Product](screenshots/product.png) |
+| ![Home](<img width="1914" height="910" alt="image" src="https://github.com/user-attachments/assets/d2273b6f-5aa3-4cd4-9d95-1d1ec528df45" />
+) | ![Shop](screenshots/shop.png) | ![Product](screenshots/product.png) |
 
 | Cart | Checkout | Admin Dashboard |
 |------|----------|-----------------|
