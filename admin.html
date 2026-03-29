@@ -14,8 +14,9 @@
     .admin-layout { display: flex; min-height: 100vh; }
     .admin-sidebar { width: 240px; background: #0a0a0a; border-right: 1px solid var(--border); padding: 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
     .admin-logo { padding: 28px 24px; border-bottom: 1px solid var(--border); }
-    .admin-logo a { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); letter-spacing: 4px; text-decoration: none; display: block; }
-    .admin-logo span { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); display: block; margin-top: 2px; }
+    .admin-logo a { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); letter-spacing: 4px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .admin-logo a img { height: 32px; width: auto; object-fit: contain; }
+    .admin-logo span { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); display: block; margin-top: 4px; }
     .admin-nav { padding: 16px 0; flex: 1; }
     .admin-nav-section { padding: 8px 24px 4px; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
     .admin-nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; font-size: 0.82rem; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; border-left: 2px solid transparent; }
@@ -25,7 +26,7 @@
     .admin-nav-item .badge { margin-left: auto; background: var(--gold); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; font-weight: 700; }
     .admin-footer { padding: 20px 24px; border-top: 1px solid var(--border); }
     .admin-user { display: flex; align-items: center; gap: 10px; }
-    .admin-avatar { width: 32px; height: 32px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #000; font-weight: 700; }
+    .admin-avatar { width: 32px; height: 32px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #000; font-weight: 700; flex-shrink: 0; }
     .admin-user-info { flex: 1; min-width: 0; }
     .admin-user-name { font-size: 0.8rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .admin-user-role { font-size: 0.65rem; color: var(--text-muted); }
@@ -81,17 +82,14 @@
     .top-product-sales { font-size: 0.72rem; color: var(--text-muted); }
     .top-product-revenue { font-size: 0.85rem; font-weight: 600; color: var(--gold); }
 
-    /* Sections */
     .admin-section { display: none; }
     .admin-section.active { display: block; }
 
-    /* Search + filter bar */
     .toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
     .toolbar input { background: var(--surface); border: 1px solid var(--border); color: var(--text-primary); padding: 9px 14px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; border-radius: 2px; min-width: 220px; }
     .toolbar input:focus { outline: none; border-color: var(--gold); }
     .toolbar select { background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary); padding: 9px 14px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; border-radius: 2px; }
 
-    /* Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
     .modal-overlay.open { display: flex; }
     .modal { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 4px; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; }
@@ -112,8 +110,11 @@
   </style>
 </head>
 <body>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
   <div id="toast-container" class="toast-container"></div>
 
+  <!-- Product Modal -->
   <div class="modal-overlay" id="productModal">
     <div class="modal">
       <div class="modal-header">
@@ -186,12 +187,15 @@
 
   <div class="admin-layout">
     <!-- Sidebar -->
-    <aside class="admin-sidebar\">
-      <div class=\"admin-logo\">
-        <a href="index.html"><img src="images/logo.svg" alt="LUXE" />LUXE</a>
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <a href="index.html">
+          <img src="images/logo.png" alt="LUXE Logo" onerror="this.style.display='none'" />
+          LUXE
+        </a>
         <span>Admin Dashboard</span>
       </div>
-      <nav class=\"admin-nav\">"
+      <nav class="admin-nav">
         <div class="admin-nav-section">Main</div>
         <div class="admin-nav-item active" onclick="showSection('overview')">
           <span class="nav-icon">📊</span> Overview
@@ -233,7 +237,7 @@
         <div class="topbar-actions">
           <button class="btn btn-outline" style="padding:9px 20px; font-size:0.75rem;" onclick="window.open('index.html', '_blank')">View Store ↗</button>
           <button class="btn btn-primary" id="addBtn" style="padding:9px 20px; font-size:0.75rem; display:none;" onclick="openAddModal()">+ Add Product</button>
-          <button class="btn btn-ghost" style="padding:9px 14px;" onclick="Auth.logout(); window.location.href='login.html';">Logout</button>
+          <button class="btn btn-ghost" style="padding:9px 14px;" onclick="Auth.logout();">Logout</button>
         </div>
       </div>
 
@@ -377,7 +381,6 @@
           <div class="stat-change up">↑ ${reviews.length} reviews</div>
         </div>`;
 
-      // Recent orders table
       const recent = [...orders].reverse().slice(0, 6);
       if (recent.length === 0) {
         document.getElementById('recentOrdersTable').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)">No orders yet</td></tr>';
@@ -397,7 +400,6 @@
           </tbody>`;
       }
 
-      // Top products
       const prods = products.slice(0, 5);
       document.getElementById('topProductsList').innerHTML = prods.map((p, i) => `
         <li class="top-product-item">
@@ -466,7 +468,7 @@
             <td style="font-weight:600">${Utils.formatPrice(o.total)}</td>
             <td style="color:var(--text-muted)">${Utils.formatDate(o.createdAt)}</td>
             <td><span class="status-badge status-${o.status}">${o.status}</span></td>
-            <td><select onchange="updateOrderStatus(${o.id}, this.value)" style="background:var(--surface);border:1px solid var(--border);color:var(--text-secondary);padding:4px 8px;font-size:0.72rem;border-radius:2px;cursor:pointer;">
+            <td><select onchange="updateOrderStatus('${o.id}', this.value)" style="background:var(--surface);border:1px solid var(--border);color:var(--text-secondary);padding:4px 8px;font-size:0.72rem;border-radius:2px;cursor:pointer;">
               ${['pending','processing','shipped','delivered','cancelled'].map(s => `<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
             </select></td>
           </tr>`).join('');
@@ -497,7 +499,7 @@
         : users.map(u => {
             const userOrders = orders.filter(o => o.shipping?.address?.email === u.email).length;
             return `<tr>
-              <td>${u.firstName} ${u.lastName}</td>
+              <td>${u.firstName || ''} ${u.lastName || ''}</td>
               <td>${u.email}</td>
               <td style="color:var(--text-muted)">${Utils.formatDate(u.createdAt)}</td>
               <td>${userOrders}</td>
@@ -519,7 +521,7 @@
               <td>${r.author}</td>
               <td>${Utils.renderStars(r.rating)} <span style="color:var(--text-muted);font-size:0.8rem">(${r.rating})</span></td>
               <td style="max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.comment}</td>
-              <td style="color:var(--text-muted)">${Utils.formatDate(r.date)}</td>
+              <td style="color:var(--text-muted)">${Utils.formatDate(r.date || r.createdAt)}</td>
             </tr>`;
           }).join('');
       document.getElementById('reviewsTable').innerHTML = header + `<tbody>${body}</tbody>`;
@@ -573,7 +575,10 @@
         images: [document.getElementById('pImage').value || 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600'],
         stock: parseInt(document.getElementById('pStock').value) || 50,
         rating: parseFloat(document.getElementById('pRating').value) || 4.5,
-        reviews: 0, sizes: ['XS','S','M','L','XL'], colors: ['Black','White','Grey']
+        reviews: 0,
+        sizes: ['XS','S','M','L','XL'],
+        colors: ['#1a1a1a','#f5f0e8','#8b7355'],
+        colorNames: ['Black','White','Tan']
       };
       const editId = document.getElementById('editingId').value;
       if (editId) {
@@ -596,13 +601,13 @@
       renderOverview();
     }
 
-    // Close modal on overlay click
     document.getElementById('productModal').addEventListener('click', e => {
       if (e.target === document.getElementById('productModal')) closeModal();
     });
 
     document.addEventListener('DOMContentLoaded', () => {
       checkAdmin();
+      initCursor();
       renderOverview();
     });
   </script>
