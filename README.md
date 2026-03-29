@@ -8,16 +8,9 @@
 
 > _Add your screenshots here by replacing the paths below._
 
-| Home | Shop | Product Detail |
-|------|------|----------------|
+
 | ![Home](<img width="1914" height="910" alt="image" src="https://github.com/user-attachments/assets/d2273b6f-5aa3-4cd4-9d95-1d1ec528df45" />
-) | ![Shop](screenshots/shop.png) | ![Product](screenshots/product.png) |
-
-| Cart | Checkout | Admin Dashboard |
-|------|----------|-----------------|
-| ![Cart](screenshots/cart.png) | ![Checkout](screenshots/checkout.png) | ![Admin](screenshots/admin.png) |
-
----
+) 
 
 ## ✨ Features
 
