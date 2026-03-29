@@ -6,10 +6,11 @@
 
 ## 📸 Preview
 
-> _Add your screenshots here by replacing the paths below._
 
 
-| ![Home](screenshots/home.png) |
+
+| ![Home](<img width="1892" height="913" alt="image" src="https://github.com/user-attachments/assets/0e96e9bf-36f1-4444-b855-19789e24b9e4" />
+) |
 
 ## ✨ Features
 
