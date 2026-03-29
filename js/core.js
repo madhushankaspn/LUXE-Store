@@ -196,7 +196,7 @@ const PRODUCTS_DATA = [
     price: 125,
     originalPrice: null,
     description: "A wardrobe essential reimagined in ultra-fine ribbed knit. The body-conscious silhouette and high neck create a clean, architectural profile that works with everything from tailored trousers to denim.",
-    images: ["images/3.jpeg" , "images/2.jpg"],
+    images: ["images/3.jpeg", "images/2.jpg"],
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     colors: ["#1a1a1a", "#f5f0e8", "#c9a89a", "#2c3e50"],
     colorNames: ["Black", "Ivory", "Blush", "Navy"],
@@ -257,12 +257,16 @@ const Storage = {
 // CART SYSTEM
 // ============================================================
 const Cart = {
-  getItems() {
+  getAll() {
     return Storage.get('luxe_cart', []);
   },
 
+  getItems() {
+    return this.getAll();
+  },
+
   addItem(product, size, color, colorName, qty = 1) {
-    const items = this.getItems();
+    const items = this.getAll();
     const key = `${product.id}-${size}-${color}`;
     const existing = items.find(i => i.key === key);
 
@@ -289,14 +293,14 @@ const Cart = {
   },
 
   removeItem(key) {
-    const items = this.getItems().filter(i => i.key !== key);
+    const items = this.getAll().filter(i => i.key !== key);
     Storage.set('luxe_cart', items);
     Cart.updateBadge();
     return items;
   },
 
   updateQty(key, qty) {
-    const items = this.getItems();
+    const items = this.getAll();
     const item = items.find(i => i.key === key);
     if (item) {
       item.qty = Math.max(1, qty);
@@ -312,11 +316,11 @@ const Cart = {
   },
 
   getTotal() {
-    return this.getItems().reduce((sum, i) => sum + (i.price * i.qty), 0);
+    return this.getAll().reduce((sum, i) => sum + (i.price * i.qty), 0);
   },
 
   getCount() {
-    return this.getItems().reduce((sum, i) => sum + i.qty, 0);
+    return this.getAll().reduce((sum, i) => sum + i.qty, 0);
   },
 
   updateBadge() {
@@ -333,12 +337,19 @@ const Cart = {
 // AUTH SYSTEM
 // ============================================================
 const Auth = {
-  register(name, email, password) {
+  register({ firstName, lastName, email, password }) {
     const users = Storage.get('luxe_users', []);
     if (users.find(u => u.email === email)) {
       return { success: false, error: 'Email already registered' };
     }
-    const user = { id: Date.now(), name, email, password, createdAt: new Date().toISOString() };
+    const user = {
+      id: Date.now(),
+      firstName,
+      lastName,
+      email,
+      password,
+      createdAt: new Date().toISOString()
+    };
     users.push(user);
     Storage.set('luxe_users', users);
     this.setSession(user);
@@ -355,7 +366,7 @@ const Auth = {
 
   adminLogin(email, password) {
     if (email === 'admin@luxestore.com' && password === 'admin123') {
-      const admin = { id: 0, name: 'Admin', email, role: 'admin' };
+      const admin = { id: 0, firstName: 'Admin', email, isAdmin: true };
       Storage.set('luxe_session', admin);
       return { success: true, user: admin };
     }
@@ -383,7 +394,7 @@ const Auth = {
 
   isAdmin() {
     const session = this.getSession();
-    return session && session.role === 'admin';
+    return session && session.isAdmin === true;
   }
 };
 
@@ -488,7 +499,7 @@ const Products = {
     );
   },
 
-  filter({ category, size, color, minPrice, maxPrice, sort } = {}) {
+  filter({ category, size, minPrice, maxPrice, sort } = {}) {
     let products = this.getAll();
 
     if (category && category !== 'All') {
@@ -509,11 +520,11 @@ const Products = {
 
     if (sort) {
       switch (sort) {
-        case 'price-asc': products.sort((a, b) => a.price - b.price); break;
+        case 'price-asc':  products.sort((a, b) => a.price - b.price); break;
         case 'price-desc': products.sort((a, b) => b.price - a.price); break;
-        case 'name-asc': products.sort((a, b) => a.name.localeCompare(b.name)); break;
-        case 'newest': products.sort((a, b) => b.id - a.id); break;
-        case 'rating': products.sort((a, b) => b.rating - a.rating); break;
+        case 'name-asc':   products.sort((a, b) => a.name.localeCompare(b.name)); break;
+        case 'newest':     products.sort((a, b) => b.id - a.id); break;
+        case 'rating':     products.sort((a, b) => b.rating - a.rating); break;
       }
     }
 
@@ -670,10 +681,11 @@ function initNavbar() {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  // Highlight active link
+  // Highlight active link — works for both .navbar-nav and .nav-links
   const path = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.navbar-nav a').forEach(a => {
-    const href = a.getAttribute('href');
+  document.querySelectorAll('.navbar-nav a, .nav-links a').forEach(a => {
+    a.classList.remove('active');
+    const href = a.getAttribute('href').split('?')[0];
     if (href === path || (path === '' && href === 'index.html')) {
       a.classList.add('active');
     }
