@@ -196,7 +196,7 @@ const PRODUCTS_DATA = [
     price: 125,
     originalPrice: null,
     description: "A wardrobe essential reimagined in ultra-fine ribbed knit. The body-conscious silhouette and high neck create a clean, architectural profile that works with everything from tailored trousers to denim.",
-    images: ["https://images.unsplash.com/photo-1588099768531-a72d4a198538?w=600&q=80", "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&q=80"],
+    images: ["images/3.jpeg" , "images/2.jpg"],
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     colors: ["#1a1a1a", "#f5f0e8", "#c9a89a", "#2c3e50"],
     colorNames: ["Black", "Ivory", "Blush", "Navy"],
